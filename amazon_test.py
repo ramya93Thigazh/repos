@@ -21,20 +21,21 @@ def test_goo_login(setup):
     driver.get("https://www.google.co.in")
     s_box=driver.find_element(By.XPATH,"//textarea[@class='gLFyf']")
     s_box.send_keys("amazon")
-    pagetitle=driver.title
-    print("page name is"+pagetitle)
-    ext_text="Shop online at Amazon India"
-    page=driver.page_source
-    assert ext_text in page
+    amazon_page = driver.find_element(By.XPATH, "(//h3[@class='LC20lb MBeuO DKV0Md'])[1]")
+    amazon_page.click()
+    a_search_box = driver.find_element(By.XPATH, "//input[@id='twotabsearchtextbox']")
+    a_search_box.send_keys("iphone")
+    pink_iphone = driver.find_element(By.XPATH, "//span[contains(text(),'Apple iPhone 13 (128GB) - Pink')]")
+    pink_iphone.click()
 
 
 @pytest.mark.order(2)
 def test_a_page(setup):
     driver = setup
     driver.get("https://www.amazon.in/")
-    amazon_page=driver.find_element(By.PARTIAL_LINK_TEXT,"Shop online at Amazon India")
+    amazon_page=driver.find_element(By.XPATH,"(//h3[@class='LC20lb MBeuO DKV0Md'])[1]")
     amazon_page.click()
-    a_search_box=driver.find_element(By.ID,"twotabsearchtextbox")
+    a_search_box=driver.find_element(By.XPATH,"//input[@id='twotabsearchtextbox']")
     a_search_box.send_keys("iphone")
     pink_iphone=driver.find_element(By.XPATH,"//span[contains(text(),'Apple iPhone 13 (128GB) - Pink')]")
     pink_iphone.click()
